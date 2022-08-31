@@ -88,6 +88,7 @@ func Compile(book wizparser.Spellbook, output string, chatty bool, emitComments 
 	emit("import (")
 	withIndent(func() {
 		emit(strconv.Quote("fmt"))
+		emit(strconv.Quote("strings"))
 		emit(strconv.Quote("encoding/binary"))
 		emit(strconv.Quote("github.com/yizhibenpao/go-filetype/wizardry"))
 		emit(strconv.Quote("github.com/yizhibenpao/go-filetype/wizardry/wizutil"))
