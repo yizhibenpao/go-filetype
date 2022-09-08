@@ -342,14 +342,14 @@ func Compile(book wizparser.Spellbook, output string, chatty bool, emitComments 
 										percentn := strings.Count(value, "%")
 										if node.rule.Level == 0 {
 											if strings.Contains(value, "%") {
-												emit("a(%s)", "fmt.Sprintf("+strconv.Quote(value)+strings.Repeat(",rc", percentn)+"#)")
+												emit("a(%s)", "fmt.Sprintf("+strconv.Quote(strings.ReplaceAll(value, "%l", "%"))+strings.Repeat(",rc", percentn)+"#)")
 											} else {
 												emit("a(%s)", strconv.Quote(value+"#"))
 											}
 
 										} else {
 											if strings.Contains(value, "%") {
-												emit("a(%s)", "fmt.Sprintf("+strconv.Quote(value)+strings.Repeat(",rc", percentn)+")")
+												emit("a(%s)", "fmt.Sprintf("+strconv.Quote(strings.ReplaceAll(value, "%l", "%"))+strings.Repeat(",rc", percentn)+")")
 											} else {
 												emit("a(%s)", strconv.Quote(value))
 											}
@@ -574,14 +574,14 @@ func Compile(book wizparser.Spellbook, output string, chatty bool, emitComments 
 							percentn := strings.Count(string(rule.Description), "%")
 							if node.rule.Level == 0 {
 								if strings.Contains(string(rule.Description), "%") {
-									emit("a(%s)", "fmt.Sprintf("+strconv.Quote(string(rule.Description))+strings.Repeat(",rc", percentn)+"#)")
+									emit("a(%s)", "fmt.Sprintf("+strconv.Quote(strings.ReplaceAll(string(rule.Description), "%l", "%"))+strings.Repeat(",rc", percentn)+"#)")
 								} else {
 									emit("a(%s)", strconv.Quote(string(rule.Description)+"#"))
 								}
 
 							} else {
 								if strings.Contains(string(rule.Description), "%") {
-									emit("a(%s)", "fmt.Sprintf("+strconv.Quote(string(rule.Description))+strings.Repeat(",rc", percentn)+")")
+									emit("a(%s)", "fmt.Sprintf("+strconv.Quote(strconv.Quote(strings.ReplaceAll(string(rule.Description), "%l", "%")))+strings.Repeat(",rc", percentn)+")")
 								} else {
 									emit("a(%s)", strconv.Quote(string(rule.Description)))
 								}
