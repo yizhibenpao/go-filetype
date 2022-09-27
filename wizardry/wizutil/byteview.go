@@ -44,7 +44,7 @@ func (bv *ByteView) Get(i int64) int {
 
 	// don't got it in buf! must read.
 	_, err := bv.Input.ReadAt(bv.buf[:bv.bufLen], bv.bufOffset)
-	if err != nil {
+	if err != nil && err.Error() != "EOF" {
 		// that's pretty bad
 		return -1
 	}
